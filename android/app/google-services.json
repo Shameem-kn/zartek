@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "791951952593",
+    "project_id": "zartek-17c3b",
+    "storage_bucket": "zartek-17c3b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:791951952593:android:635c8389f9afe3a27413f0",
+        "android_client_info": {
+          "package_name": "com.example.zartek"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "791951952593-8cs9b71fok12c6sfn66lmp81bfe1e97d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.zartek",
+            "certificate_hash": "e592614602588504e05590267f1c8974564291ec"
+          }
+        },
+        {
+          "client_id": "791951952593-bllb0ila2nrp2hspiobua9ip2e4p21j3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAr_aJLg0BGhxDDSOUSYLeDwCXq880la-8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "791951952593-bllb0ila2nrp2hspiobua9ip2e4p21j3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "791951952593-l481of9kvibndencitsk0c2t6voendnb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.zartek"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
