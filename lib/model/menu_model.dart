@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 class MenuModel {
@@ -62,6 +61,7 @@ class Dish {
   final List<Addon> addons;
   final String imageUrl;
   final bool customizationsAvailable;
+  final bool isVeg;
 
   Dish({
     required this.id,
@@ -73,6 +73,7 @@ class Dish {
     required this.addons,
     required this.imageUrl,
     required this.customizationsAvailable,
+    required this.isVeg,
   });
 
   factory Dish.fromRawJson(String str) => Dish.fromJson(json.decode(str));
@@ -89,6 +90,7 @@ class Dish {
         addons: List<Addon>.from(json["addons"].map((x) => Addon.fromJson(x))),
         imageUrl: json["image_url"],
         customizationsAvailable: json["customizations_available"],
+        isVeg: json["is_veg"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -101,6 +103,7 @@ class Dish {
         "addons": List<dynamic>.from(addons.map((x) => x.toJson())),
         "image_url": imageUrl,
         "customizations_available": customizationsAvailable,
+        "is_veg": isVeg,
       };
 }
 

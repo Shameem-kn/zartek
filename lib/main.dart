@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart'; // Import flutter_bloc
+import 'package:zartek/bloc/cart/cart_bloc.dart';
 import 'package:zartek/bloc/menu/menu_bloc.dart';
 import 'package:zartek/core/dependency_injection/locator.dart';
 
@@ -8,6 +9,7 @@ import 'package:zartek/firebase_options.dart';
 import 'package:zartek/core/routes/routes_name.dart';
 import 'package:zartek/core/routes/route_paths.dart';
 import 'package:zartek/bloc/auth/auth_bloc.dart';
+import 'package:zartek/view/checkout_screen/checkout_screen.dart';
 import 'package:zartek/view/user_home_screen/user_home_screen.dart'; // Import your blocs
 
 void main() async {
@@ -34,6 +36,10 @@ class MyApp extends StatelessWidget {
           create: (context) =>
               getIt<MenuBloc>(), // Accessing your BLoC through service locator
         ),
+        BlocProvider<CartBloc>(
+          create: (context) =>
+              getIt<CartBloc>(), // Accessing your BLoC through service locator
+        ),
       ],
       child: MaterialApp(
         title: 'Zartek',
@@ -42,9 +48,8 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         debugShowCheckedModeBanner: false,
-        // initialRoute: RoutePaths.authentication,
-        // onGenerateRoute: Routes.generateRoute,
-        home: UserHomeScreen(),
+        initialRoute: RoutePaths.authentication,
+        onGenerateRoute: Routes.generateRoute,
       ),
     );
   }

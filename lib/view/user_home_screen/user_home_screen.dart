@@ -5,7 +5,7 @@ import 'package:zartek/view/user_home_screen/widgets/custom_drawer.dart';
 import '../../bloc/menu/menu_bloc.dart';
 import '../../bloc/menu/menu_event.dart';
 import '../../bloc/menu/menu_state.dart';
-import '../../core/dependency_injection/locator.dart';
+
 import '../../core/routes/route_paths.dart';
 
 class UserHomeScreen extends StatefulWidget {
@@ -24,7 +24,6 @@ class _UserHomeScreenState extends State<UserHomeScreen>
   void initState() {
     super.initState();
     context.read<MenuBloc>().add(FetchMenuEvent());
-    // getIt<MenuBloc>().add(FetchMenuEvent());
   }
 
   @override

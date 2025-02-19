@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:zartek/bloc/cart/cart_bloc.dart';
+import 'package:zartek/bloc/cart/cart_state.dart';
 import 'package:zartek/view/checkout_screen/widgets/cart_item_card.dart';
 
 class CheckoutScreen extends StatefulWidget {
@@ -40,130 +43,140 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            children: [
-              // Container with border radius and shadow
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                padding: EdgeInsets.all(10),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  boxShadow: [
-                    // Shadow for bottom and right side (stronger shadow)
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 1,
-                      blurRadius: 5,
-                      offset: Offset(3, 3), // Shadow on bottom and right
+      body: BlocConsumer<CartBloc, CartState>(
+        listener: (context, state) {
+          // TODO: implement listener
+        },
+        builder: (context, state) {
+          final cartItems = state.cartItems;
+          return SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  // Container with border radius and shadow
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      boxShadow: [
+                        // Shadow for bottom and right side (stronger shadow)
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 1,
+                          blurRadius: 5,
+                          offset: Offset(3, 3), // Shadow on bottom and right
+                        ),
+                        // Slight shadow for top and left side (weakened)
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.2),
+                          spreadRadius: 1,
+                          blurRadius: 3,
+                          offset: Offset(-3, -3), // Shadow on top and left
+                        ),
+                      ],
+                      color: Colors.white,
                     ),
-                    // Slight shadow for top and left side (weakened)
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.2),
-                      spreadRadius: 1,
-                      blurRadius: 3,
-                      offset: Offset(-3, -3), // Shadow on top and left
-                    ),
-                  ],
-                  color: Colors.white,
-                ),
-                child: Column(
-                  children: [
-                    // Inner container with green background and text
-                    Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: const Color.fromARGB(255, 25, 96, 26),
-                      ),
-                      padding: const EdgeInsets.all(10),
-                      child: Center(
-                        child: Text(
-                          "2 dishes - 2 items",
-                          style: TextStyle(
-                            color: Colors.white, // White text color
+                    child: Column(
+                      children: [
+                        // Inner container with green background and text
+                        Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: const Color.fromARGB(255, 25, 96, 26),
                           ),
+                          padding: const EdgeInsets.all(10),
+                          child: Center(
+                            child: Text(
+                              "2 dishes - 2 items",
+                              style: TextStyle(
+                                color: Colors.white, // White text color
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                            height: 20), // Add spacing between the two children
+                        // ListView.builder as the second child inside the container
+                        ListView.separated(
+                          shrinkWrap: true, // Prevents infinite height error
+                          physics:
+                              NeverScrollableScrollPhysics(), // Disable scrolling within the ListView
+                          itemCount: cartItems.length,
+                          itemBuilder: (context, index) {
+                            return CartItemCard(
+                              cartItem: cartItems[index],
+                            );
+                          },
+                          separatorBuilder: (BuildContext context, int index) {
+                            return Divider(
+                              color: Colors.grey,
+                              thickness: 1,
+                            );
+                          },
+                        ),
+                        Divider(
+                          color: Colors.grey,
+                          thickness: 1,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Total Amount",
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w600),
+                              ),
+                              Text(
+                                "INR 65.00",
+                                style: TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.green),
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 70),
+                  SizedBox(
+                    width: double.infinity, // Full width
+                    height: 50, // Fixed height
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(
+                            255, 25, 96, 26), // Dark Green Color
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                      onPressed: () {
+                        // Handle Place Order action
+                      },
+                      child: Text(
+                        "Place Order",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 21,
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
                     ),
-                    SizedBox(
-                        height: 20), // Add spacing between the two children
-                    // ListView.builder as the second child inside the container
-                    ListView.separated(
-                      shrinkWrap: true, // Prevents infinite height error
-                      physics:
-                          NeverScrollableScrollPhysics(), // Disable scrolling within the ListView
-                      itemCount: items.length,
-                      itemBuilder: (context, index) {
-                        return CartItemCard();
-                      },
-                      separatorBuilder: (BuildContext context, int index) {
-                        return Divider(
-                          color: Colors.grey,
-                          thickness: 1,
-                        );
-                      },
-                    ),
-                    Divider(
-                      color: Colors.grey,
-                      thickness: 1,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Total Amount",
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w600),
-                          ),
-                          Text(
-                            "INR 65.00",
-                            style: TextStyle(
-                                fontSize: 17,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.green),
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 70),
-              SizedBox(
-                width: double.infinity, // Full width
-                height: 50, // Fixed height
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(
-                        255, 25, 96, 26), // Dark Green Color
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
                   ),
-                  onPressed: () {
-                    // Handle Place Order action
-                  },
-                  child: Text(
-                    "Place Order",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 21,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ),
+                ],
               ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zartek/bloc/auth/auth_bloc.dart';
+import 'package:zartek/bloc/cart/cart_bloc.dart';
 import 'package:zartek/repository/auth_api/auth_repo.dart';
 import 'package:zartek/repository/auth_api/auth_repo_impl.dart';
 import 'package:zartek/repository/menu_repo/menu_repo.dart';
@@ -42,4 +43,6 @@ void setupLocator() async {
       authRepo: getIt<AuthRepo>(), userPrefRepo: getIt<UserPrefRepo>()));
 
   getIt.registerFactory<MenuBloc>(() => MenuBloc(menuRepo: getIt<MenuRepo>()));
+
+  getIt.registerFactory<CartBloc>(() => CartBloc());
 }

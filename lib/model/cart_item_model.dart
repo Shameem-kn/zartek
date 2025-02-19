@@ -3,12 +3,12 @@ import 'package:equatable/equatable.dart';
 class CartItemModel extends Equatable {
   final int id;
   final String name;
-  final double price;
+  final String price;
   final String currency;
   final int calories;
   final int quantity;
 
-  CartItemModel({
+  const CartItemModel({
     required this.id,
     required this.name,
     required this.price,

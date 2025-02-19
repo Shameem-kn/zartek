@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:zartek/model/cart_item_model.dart';
 import 'package:zartek/view/user_home_screen/widgets/dish_card.dart';
 
 import '../../user_home_screen/widgets/counter_widget.dart';
 
 class CartItemCard extends StatefulWidget {
-  const CartItemCard({super.key});
+  final CartItemModel cartItem;
+  const CartItemCard({super.key, required this.cartItem});
 
   @override
   State<CartItemCard> createState() => _CartItemCardState();
@@ -74,6 +76,7 @@ class _CartItemCardState extends State<CartItemCard> {
             ),
             CounterWidget(
               color: const Color.fromARGB(255, 25, 96, 26),
+              cartItem: widget.cartItem,
             ),
             Text("INR 20.00"),
 
