@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 
 class CustomPinput extends StatefulWidget {
-  const CustomPinput({super.key});
+  final TextEditingController pinController;
+  const CustomPinput({super.key, required this.pinController});
 
   @override
   State<CustomPinput> createState() => _CustomPinputState();
@@ -11,8 +12,6 @@ class CustomPinput extends StatefulWidget {
 class _CustomPinputState extends State<CustomPinput> {
   @override
   Widget build(BuildContext context) {
-    late TextEditingController pinController = TextEditingController();
-
     // Default theme with square fields and rounded corners
     final PinTheme defaultPinTheme = PinTheme(
       decoration: BoxDecoration(
@@ -50,7 +49,7 @@ class _CustomPinputState extends State<CustomPinput> {
       child: Center(
         child: Pinput(
           length: 6, // Set the number of fields to 6
-          controller: pinController,
+          controller: widget.pinController,
           defaultPinTheme: defaultPinTheme,
           focusedPinTheme: focusedPinTheme, // Theme when focused
         ),

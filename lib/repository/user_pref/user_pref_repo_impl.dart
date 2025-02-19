@@ -1,5 +1,4 @@
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'user_pref_repo.dart';
 
 class UserPrefRepoImpl implements UserPrefRepo {
@@ -13,9 +12,9 @@ class UserPrefRepoImpl implements UserPrefRepo {
     await _prefs.setString('username', username);
     await _prefs.setString('uid', uid);
     await _prefs.setString('imageUrl', imageUrl);
-    print("inside save data");
-    print(username);
-    print(uid);
+    print("User data saved:");
+    print("Username: $username");
+    print("UID: $uid");
   }
 
   @override
@@ -28,5 +27,13 @@ class UserPrefRepoImpl implements UserPrefRepo {
       'uid': uid,
       'imageUrl': imageUrl,
     };
+  }
+
+  @override
+  Future<void> deleteUserData() async {
+    await _prefs.remove('username');
+    await _prefs.remove('uid');
+    await _prefs.remove('imageUrl');
+    print("User data deleted.");
   }
 }

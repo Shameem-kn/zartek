@@ -16,7 +16,8 @@ class Routes {
         screen = const AuthenticationScreen();
         break;
       case RoutePaths.otp:
-        screen = const OtpScreen();
+        final verificationId = settings.arguments as String? ?? '';
+        screen = OtpScreen(verificationId: verificationId);
         break;
       case RoutePaths.phoneNumber:
         screen = const PhoneNumberScreen();

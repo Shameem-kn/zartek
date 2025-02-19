@@ -19,17 +19,22 @@
 
 //       final GoogleSignInAuthentication googleAuth =
 //           await googleUser.authentication;
-//       print(googleAuth.idToken);
+
+//       if (googleAuth.idToken == null) {
+//         throw Exception("ID Token is null.");
+//       }
+
 //       final AuthCredential credential = GoogleAuthProvider.credential(
 //         accessToken: googleAuth.accessToken,
 //         idToken: googleAuth.idToken,
 //       );
-//       print("id is ${credential.providerId}");
 
 //       final UserCredential userCredential =
 //           await _firebaseAuth.signInWithCredential(credential);
+//       print("credentials : ${userCredential.user}");
 //       return userCredential.user;
 //     } catch (e) {
+//       print("Error during Google Sign-In: $e");
 //       throw Exception(e.toString());
 //     }
 //   }
@@ -50,6 +55,7 @@ class FirebaseAuthService {
       : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
         _googleSignIn = googleSignIn ?? GoogleSignIn();
 
+  /// Sign in with Google
   Future<User?> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
@@ -72,7 +78,7 @@ class FirebaseAuthService {
 
       final UserCredential userCredential =
           await _firebaseAuth.signInWithCredential(credential);
-      print("credentials : ${userCredential.user}");
+      print("Google credentials : ${userCredential.user}");
       return userCredential.user;
     } catch (e) {
       print("Error during Google Sign-In: $e");
@@ -80,6 +86,48 @@ class FirebaseAuthService {
     }
   }
 
+  /// Sign in with Phone
+  Future<void> signInWithPhone(
+      String phoneNumber, Function(String) codeSentCallback) async {
+    try {
+      await _firebaseAuth.verifyPhoneNumber(
+        phoneNumber: phoneNumber,
+        verificationCompleted: (PhoneAuthCredential credential) async {
+          await _firebaseAuth.signInWithCredential(credential);
+        },
+        verificationFailed: (FirebaseAuthException e) {
+          throw Exception("Phone verification failed: ${e.message}");
+        },
+        codeSent: (String verificationId, int? resendToken) {
+          codeSentCallback(verificationId);
+        },
+        codeAutoRetrievalTimeout: (String verificationId) {
+          print("OTP auto-retrieval timed out.");
+        },
+      );
+    } catch (e) {
+      print("Error sending OTP: $e");
+      throw Exception("Error sending OTP: $e");
+    }
+  }
+
+  /// Verify OTP and sign in
+  Future<User?> verifyOTP(String verificationId, String otp) async {
+    try {
+      final credential = PhoneAuthProvider.credential(
+        verificationId: verificationId,
+        smsCode: otp,
+      );
+      UserCredential userCredential =
+          await _firebaseAuth.signInWithCredential(credential);
+      return userCredential.user;
+    } catch (e) {
+      print("Invalid OTP or verification failed: $e");
+      throw Exception("Invalid OTP or verification failed: $e");
+    }
+  }
+
+  /// Sign out from both Google and Phone authentication
   Future<void> signOut() async {
     await _googleSignIn.signOut();
     await _firebaseAuth.signOut();

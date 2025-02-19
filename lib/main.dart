@@ -1,16 +1,16 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart'; // Import flutter_bloc
+import 'package:zartek/bloc/bloc/phone_auth_bloc.dart';
 import 'package:zartek/bloc/cart/cart_bloc.dart';
 import 'package:zartek/bloc/menu/menu_bloc.dart';
+
 import 'package:zartek/core/dependency_injection/locator.dart';
 
 import 'package:zartek/firebase_options.dart';
 import 'package:zartek/core/routes/routes_name.dart';
 import 'package:zartek/core/routes/route_paths.dart';
-import 'package:zartek/bloc/auth/auth_bloc.dart';
-import 'package:zartek/view/checkout_screen/checkout_screen.dart';
-import 'package:zartek/view/user_home_screen/user_home_screen.dart'; // Import your blocs
+import 'package:zartek/bloc/google_auth/auth_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,12 +18,14 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  setupLocator(); // Call service locator setup to register dependencies
+  await setupLocator(); // Call service locator setup to register dependencies
 
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -39,6 +41,10 @@ class MyApp extends StatelessWidget {
         BlocProvider<CartBloc>(
           create: (context) =>
               getIt<CartBloc>(), // Accessing your BLoC through service locator
+        ),
+        BlocProvider<PhoneAuthBloc>(
+          create: (context) => getIt<
+              PhoneAuthBloc>(), // Accessing your BLoC through service locator
         ),
       ],
       child: MaterialApp(

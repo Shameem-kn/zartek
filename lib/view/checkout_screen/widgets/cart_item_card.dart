@@ -78,7 +78,7 @@ class _CartItemCardState extends State<CartItemCard> {
               color: const Color.fromARGB(255, 25, 96, 26),
               cartItem: widget.cartItem,
             ),
-            Text(widget.cartItem.price),
+            Text(widget.cartItem.totalDishPrice.toStringAsFixed(2)),
 
             // Container wrapping the image with size and fit adjustments
           ],

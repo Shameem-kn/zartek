@@ -221,11 +221,12 @@ class _DishCardState extends State<DishCard> {
                     cartItem: CartItemModel(
                         id: widget.dish.id,
                         name: widget.dish.name,
-                        price: widget.dish.price,
+                        price: double.tryParse(widget.dish.price) ?? 0,
                         currency: widget.dish.currency.toString(),
                         calories: widget.dish.calories,
                         isVeg: widget.dish.isVeg,
-                        quantity: 0),
+                        quantity: 0,
+                        totalDishPrice: 0),
                   ),
                   SizedBox(height: 10),
                   widget.dish.customizationsAvailable

@@ -135,7 +135,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                     fontSize: 18, fontWeight: FontWeight.w600),
                               ),
                               Text(
-                                "INR 65.00",
+                                state.totalCartPrice.toStringAsFixed(2),
                                 style: TextStyle(
                                     fontSize: 17,
                                     fontWeight: FontWeight.w600,

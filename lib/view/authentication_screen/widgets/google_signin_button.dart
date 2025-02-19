@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:zartek/bloc/auth/auth_bloc.dart';
-import 'package:zartek/bloc/auth/auth_event.dart';
-import 'package:zartek/bloc/auth/auth_state.dart';
+import 'package:zartek/bloc/google_auth/auth_bloc.dart';
+import 'package:zartek/bloc/google_auth/auth_event.dart';
+import 'package:zartek/bloc/google_auth/auth_state.dart';
 import 'package:zartek/core/routes/route_paths.dart'; // Import the RoutePaths for easy access
 
 class GoogleSigninButton extends StatelessWidget {
