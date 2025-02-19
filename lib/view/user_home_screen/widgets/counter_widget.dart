@@ -118,8 +118,9 @@ class CounterWidget extends StatelessWidget {
                 onPressed: count > 0
                     ? () {
                         context.read<CartBloc>().add(
-                              UpdateQuantity(
-                                  cartItem: cartItem, quantity: count - 1),
+                              RemoveFromCart(
+                                cartItem: cartItem,
+                              ),
                             );
                       }
                     : null,
@@ -137,7 +138,9 @@ class CounterWidget extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 onPressed: () {
                   context.read<CartBloc>().add(
-                        UpdateQuantity(cartItem: cartItem, quantity: count + 1),
+                        AddToCart(
+                          cartItem: cartItem,
+                        ),
                       );
                 },
                 icon: Icon(Icons.add, color: Colors.white),

@@ -93,7 +93,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           padding: const EdgeInsets.all(10),
                           child: Center(
                             child: Text(
-                              "2 dishes - 2 items",
+                              "${cartItems.length} dishes - ${state.cartCount} items",
                               style: TextStyle(
                                 color: Colors.white, // White text color
                               ),

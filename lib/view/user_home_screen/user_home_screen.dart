@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zartek/view/user_home_screen/tab_view.dart';
 import 'package:zartek/view/user_home_screen/widgets/custom_drawer.dart';
+import '../../bloc/cart/cart_bloc.dart';
+import '../../bloc/cart/cart_state.dart';
 import '../../bloc/menu/menu_bloc.dart';
 import '../../bloc/menu/menu_event.dart';
 import '../../bloc/menu/menu_state.dart';
@@ -61,20 +63,27 @@ class _UserHomeScreenState extends State<UserHomeScreen>
                   },
                 ),
                 actions: [
-                  IconButton(
-                    padding: const EdgeInsets.only(right: 10),
-                    onPressed: () {
-                      Navigator.pushNamed(context, RoutePaths.cart);
+                  BlocBuilder<CartBloc, CartState>(
+                    builder: (context, state) {
+                      return IconButton(
+                        padding: const EdgeInsets.only(right: 10),
+                        onPressed: () {
+                          Navigator.pushNamed(context, RoutePaths.cart);
+                        },
+                        icon: state.cartCount > 0
+                            ? Badge(
+                                isLabelVisible: true,
+                                backgroundColor: Colors.red,
+                                label: Text("${state.cartCount}"),
+                                offset: const Offset(9, -3),
+                                textColor: Colors.white,
+                                child: const Icon(Icons.shopping_cart,
+                                    color: Colors.grey, size: 27),
+                              )
+                            : const Icon(Icons.shopping_cart,
+                                color: Colors.grey, size: 27),
+                      );
                     },
-                    icon: Badge(
-                      isLabelVisible: true,
-                      backgroundColor: Colors.red,
-                      label: const Text("2"),
-                      offset: const Offset(9, -3),
-                      textColor: Colors.white,
-                      child: const Icon(Icons.shopping_cart,
-                          color: Colors.grey, size: 27),
-                    ),
                   ),
                 ],
                 bottom: TabBar(

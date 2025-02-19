@@ -224,6 +224,7 @@ class _DishCardState extends State<DishCard> {
                         price: widget.dish.price,
                         currency: widget.dish.currency.toString(),
                         calories: widget.dish.calories,
+                        isVeg: widget.dish.isVeg,
                         quantity: 0),
                   ),
                   SizedBox(height: 10),
