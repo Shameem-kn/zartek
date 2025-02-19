@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:zartek/model/menu_model.dart';
 import 'package:zartek/view/user_home_screen/widgets/counter_widget.dart';
 
 class DishCard extends StatefulWidget {
-  const DishCard({super.key});
+  final Dish dish;
+  const DishCard({super.key, required this.dish});
 
   @override
   State<DishCard> createState() => _DishCardState();
@@ -11,6 +13,7 @@ class DishCard extends StatefulWidget {
 class _DishCardState extends State<DishCard> {
   @override
   Widget build(BuildContext context) {
+    print(" iamge url is : ${widget.dish.imageUrl}");
     double width = MediaQuery.of(context).size.width;
     return Center(
       child: Container(
@@ -33,7 +36,7 @@ class _DishCardState extends State<DishCard> {
                 children: [
                   SizedBox(
                     child: Text(
-                      "Traditional New England Seafood Chowder",
+                      widget.dish.name,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 5,
                       style: TextStyle(
@@ -48,7 +51,7 @@ class _DishCardState extends State<DishCard> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Text(
-                        "INR 175",
+                        "INR ${widget.dish.price}",
                         style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w600,
@@ -57,7 +60,7 @@ class _DishCardState extends State<DishCard> {
                       ),
                       Spacer(),
                       Text(
-                        "15 calories",
+                        "${widget.dish.calories} calories",
                         style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w600,
@@ -69,7 +72,7 @@ class _DishCardState extends State<DishCard> {
                   SizedBox(height: 10),
                   SizedBox(
                     child: Text(
-                      "hi all, its max gonna be a 2 line always. No matter how long it is",
+                      widget.dish.description,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 5,
                       style: TextStyle(
@@ -79,12 +82,14 @@ class _DishCardState extends State<DishCard> {
                     ),
                   ),
                   SizedBox(height: 10),
-                  CounterWidget(),
+                  CounterWidget(cartItem: null,),
                   SizedBox(height: 10),
-                  Text(
-                    "Customizations Available",
-                    style: TextStyle(color: Colors.red),
-                  )
+                  widget.dish.addons.isNotEmpty
+                      ? Text(
+                          "Customizations Available",
+                          style: TextStyle(color: Colors.red),
+                        )
+                      : SizedBox(),
                 ],
               ),
             ),
@@ -96,19 +101,29 @@ class _DishCardState extends State<DishCard> {
               decoration: BoxDecoration(
                 borderRadius:
                     BorderRadius.circular(8), // Optional: add rounded corners
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black26,
-                    offset: Offset(0, 4),
-                    blurRadius: 8,
-                  ),
-                ],
               ),
               child: FittedBox(
                 fit: BoxFit.fill,
-                child: Image.asset(
-                  "assets/images/salad.jpg",
-                ),
+                child: widget.dish.imageUrl.isNotEmpty
+                    ? Image.network(
+                        widget.dish.imageUrl,
+                        width: 80,
+                        height: 100,
+                        fit: BoxFit.cover,
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        },
+                        errorBuilder: (context, error, stackTrace) =>
+                            Image.asset(
+                          "assets/images/placeholder.jpg", // Fallback image if URL fails
+                          fit: BoxFit.cover,
+                        ),
+                      )
+                    : Image.asset(
+                        "assets/images/placeholder.jpg",
+                      ),
               ),
             ),
           ],

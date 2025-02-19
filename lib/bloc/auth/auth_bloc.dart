@@ -10,10 +10,18 @@ class GoogleAuthBloc extends Bloc<GoogleAuthEvent, GoogleAuthState> {
   final UserPrefRepo _userPrefRepo;
 
   // Constructor with injected dependencies
+  // GoogleAuthBloc(
+  //   this._authRepo,
+  //   this._userPrefRepo,
+  // ) : super(GoogleAuthInitialState()) {
+  //   on<GoogleSignInRequested>(_onGoogleSignIn);
+  //   on<GoogleSignOutRequested>(_onGoogleSignOut);
+  // }
   GoogleAuthBloc(
-    this._authRepo,
-    this._userPrefRepo,
-  ) : super(GoogleAuthInitialState()) {
+      {required AuthRepo authRepo, required UserPrefRepo userPrefRepo})
+      : _authRepo = authRepo,
+        _userPrefRepo = userPrefRepo,
+        super(GoogleAuthInitialState()) {
     on<GoogleSignInRequested>(_onGoogleSignIn);
     on<GoogleSignOutRequested>(_onGoogleSignOut);
   }

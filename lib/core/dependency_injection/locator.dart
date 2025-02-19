@@ -3,9 +3,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zartek/bloc/auth/auth_bloc.dart';
 import 'package:zartek/repository/auth_api/auth_repo.dart';
 import 'package:zartek/repository/auth_api/auth_repo_impl.dart';
+import 'package:zartek/repository/menu_repo/menu_repo.dart';
 import 'package:zartek/repository/user_pref/user_pref_repo.dart';
 
+import '../../bloc/menu/menu_bloc.dart';
 import '../../data/firebase_services/firebase_auth.dart';
+import '../../data/network/base_api_services.dart';
+import '../../data/network/network_api_services.dart';
+
+import '../../repository/menu_repo/menu_repo_impl.dart';
 import '../../repository/user_pref/user_pref_repo_impl.dart';
 
 final getIt = GetIt.instance;
@@ -18,15 +24,22 @@ void setupLocator() async {
   final sharedPreferences = await SharedPreferences.getInstance();
   getIt.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
 
+  // Register network service
+  getIt.registerLazySingleton<BaseApiServices>(() => NetworkApiService());
+
   // Register repositories
   getIt.registerLazySingleton<AuthRepo>(
       () => AuthRepoImpl(getIt<FirebaseAuthService>()));
 
-  // Register UserPrefRepo
   getIt.registerLazySingleton<UserPrefRepo>(
       () => UserPrefRepoImpl(getIt<SharedPreferences>()));
 
+  getIt.registerLazySingleton<MenuRepo>(
+      () => MenuRepoImpl(getIt<BaseApiServices>()));
+
   // Register BLoCs
-  getIt.registerFactory<GoogleAuthBloc>(
-      () => GoogleAuthBloc(getIt<AuthRepo>(), getIt<UserPrefRepo>()));
+  getIt.registerFactory<GoogleAuthBloc>(() => GoogleAuthBloc(
+      authRepo: getIt<AuthRepo>(), userPrefRepo: getIt<UserPrefRepo>()));
+
+  getIt.registerFactory<MenuBloc>(() => MenuBloc(menuRepo: getIt<MenuRepo>()));
 }
