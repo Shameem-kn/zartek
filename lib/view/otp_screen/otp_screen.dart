@@ -21,7 +21,7 @@ class _OtpScreenState extends State<OtpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final phoneAuthBloc = context.read<PhoneAuthBloc>(); // Access BLoC instance
+    final phoneAuthBloc = context.read<PhoneAuthBloc>();
 
     return Scaffold(
       body: Center(

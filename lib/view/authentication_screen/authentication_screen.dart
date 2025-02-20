@@ -5,14 +5,9 @@ import 'package:zartek/view/authentication_screen/widgets/phone_signin_button.da
 
 import '../../utils/screen_size_finder.dart';
 
-class AuthenticationScreen extends StatefulWidget {
+class AuthenticationScreen extends StatelessWidget {
   const AuthenticationScreen({super.key});
 
-  @override
-  State<AuthenticationScreen> createState() => _AuthenticationScreenState();
-}
-
-class _AuthenticationScreenState extends State<AuthenticationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

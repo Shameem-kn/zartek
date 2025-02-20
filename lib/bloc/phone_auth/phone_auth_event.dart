@@ -5,7 +5,6 @@ abstract class PhoneAuthEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-/// Event to sign in with phone number (send OTP)
 class PhoneAuthSignInEvent extends PhoneAuthEvent {
   final String phoneNumber;
 
@@ -15,7 +14,6 @@ class PhoneAuthSignInEvent extends PhoneAuthEvent {
   List<Object?> get props => [phoneNumber];
 }
 
-/// Event to verify OTP
 class VerifyOtpEvent extends PhoneAuthEvent {
   final String verificationId;
   final String otp;

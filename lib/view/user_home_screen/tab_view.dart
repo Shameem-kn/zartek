@@ -16,8 +16,7 @@ class _TabViewState extends State<TabView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView.separated(
-        shrinkWrap: true, // Prevents infinite height error
-        // physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true, 
         itemCount: widget.category.dishes.length,
         itemBuilder: (context, index) {
           return DishCard(dish: widget.category.dishes[index]);

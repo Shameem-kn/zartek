@@ -37,7 +37,7 @@ class CustomDrawer extends StatelessWidget {
                 bottomRight: Radius.circular(10),
               ),
             ),
-            height: screenHeight * .35,
+            height: 320,
             width: double.infinity,
             child: Padding(
               padding: const EdgeInsets.all(16.0),
