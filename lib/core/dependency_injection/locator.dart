@@ -20,6 +20,41 @@ import '../../repository/user_pref/user_pref_repo_impl.dart';
 
 final getIt = GetIt.instance;
 
+// Future<void> setupLocator() async {
+//   // Register services
+//   getIt.registerLazySingleton<FirebaseAuthService>(() => FirebaseAuthService());
+
+//   // Register SharedPreferences (async initialization)
+//   final sharedPreferences = await SharedPreferences.getInstance();
+//   getIt.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
+
+//   // Register network service
+//   getIt.registerLazySingleton<BaseApiServices>(() => NetworkApiService());
+
+//   // Register repositories
+//   getIt.registerLazySingleton<GoogleAuthRepo>(
+//       () => GoogleAuthRepoImpl(getIt<FirebaseAuthService>()));
+
+//   getIt.registerLazySingleton<PhoneAuthRepo>(
+//       () => PhoneAuthRepoImpl(getIt<FirebaseAuthService>()));
+
+//   getIt.registerLazySingleton<UserPrefRepo>(
+//       () => UserPrefRepoImpl(getIt<SharedPreferences>()));
+
+//   getIt.registerLazySingleton<MenuRepo>(
+//       () => MenuRepoImpl(getIt<BaseApiServices>()));
+
+//   // Register BLoCs
+//   getIt.registerFactory<GoogleAuthBloc>(() => GoogleAuthBloc(
+//       authRepo: getIt<GoogleAuthRepo>(), userPrefRepo: getIt<UserPrefRepo>()));
+
+//   getIt.registerFactory<MenuBloc>(() => MenuBloc(menuRepo: getIt<MenuRepo>()));
+
+//   getIt.registerFactory<CartBloc>(() => CartBloc());
+
+//   getIt.registerFactory<PhoneAuthBloc>(() => PhoneAuthBloc());
+// }
+
 Future<void> setupLocator() async {
   // Register services
   getIt.registerLazySingleton<FirebaseAuthService>(() => FirebaseAuthService());
@@ -52,7 +87,7 @@ Future<void> setupLocator() async {
 
   getIt.registerFactory<CartBloc>(() => CartBloc());
 
-  getIt.registerFactory<PhoneAuthBloc>(() => PhoneAuthBloc(
-      phoneAuthRepo: getIt<PhoneAuthRepo>(),
-      userPrefRepo: getIt<UserPrefRepo>()));
+  // FIX: Inject UserPrefRepo into PhoneAuthBloc
+  getIt.registerFactory<PhoneAuthBloc>(
+      () => PhoneAuthBloc(getIt<UserPrefRepo>()));
 }
