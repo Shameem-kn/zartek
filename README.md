@@ -1,16 +1,15 @@
 # zartek
 
-A new Flutter project.
+. BLOC is used for the state management along with clean code architecture .
+.splash Screen is implemented to check if the user is already logged in. If yes,  is navigated to the home screen else to the authentication screen
+.The network images is cached in order to prevent the fetching of image from network each time the widget rebuilds.
 
-## Getting Started
+.Find the Attached video link
 
-This project is a starting point for a Flutter application.
+https://github.com/user-attachments/assets/471d20d2-5f0a-4f67-abe1-96c759398da2
 
-A few resources to get you started if this is your first Flutter project:
+https://github.com/user-attachments/assets/27e53aac-ca65-4cf0-a192-c071e254dfba
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
