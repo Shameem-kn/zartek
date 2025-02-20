@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../view/splash_screen.dart/splash_screen.dart';
 
 import '../../view/authentication_screen/authentication_screen.dart';
 import '../../view/checkout_screen/checkout_screen.dart';
@@ -12,6 +13,9 @@ class Routes {
     Widget screen;
 
     switch (settings.name) {
+      case RoutePaths.splash:
+        screen = const SplashScreen();
+        break;
       case RoutePaths.authentication:
         screen = const AuthenticationScreen();
         break;

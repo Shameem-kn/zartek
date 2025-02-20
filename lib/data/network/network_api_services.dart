@@ -4,16 +4,13 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/foundation.dart';
+import 'package:zartek/data/exception/app_exceptions.dart';
 
-import '../exception/app_exceptions.dart';
 import 'base_api_services.dart';
 
 class NetworkApiService implements BaseApiServices {
   @override
   Future<dynamic> getApi(String url) async {
-    if (kDebugMode) {
-      print(url);
-    }
     dynamic responseJson;
     try {
       final response =
@@ -25,9 +22,6 @@ class NetworkApiService implements BaseApiServices {
       throw FetchDataException('Network Request time out');
     }
 
-    if (kDebugMode) {
-      print(responseJson);
-    }
     return responseJson;
   }
 

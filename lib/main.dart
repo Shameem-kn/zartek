@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart'; // Import flutter_bloc
-import 'package:zartek/bloc/bloc/phone_auth_bloc.dart';
+import 'package:zartek/bloc/phone_auth/phone_auth_bloc.dart';
 import 'package:zartek/bloc/cart/cart_bloc.dart';
 import 'package:zartek/bloc/menu/menu_bloc.dart';
 
@@ -11,6 +11,8 @@ import 'package:zartek/firebase_options.dart';
 import 'package:zartek/core/routes/routes_name.dart';
 import 'package:zartek/core/routes/route_paths.dart';
 import 'package:zartek/bloc/google_auth/auth_bloc.dart';
+
+import 'utils/screen_size_finder.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,6 +30,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    screenSizeFinder(context);
     return MultiBlocProvider(
       providers: [
         BlocProvider<GoogleAuthBloc>(
@@ -54,7 +57,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         debugShowCheckedModeBanner: false,
-        initialRoute: RoutePaths.authentication,
+        initialRoute: RoutePaths.splash,
         onGenerateRoute: Routes.generateRoute,
       ),
     );

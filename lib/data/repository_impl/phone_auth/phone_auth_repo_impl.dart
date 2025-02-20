@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:zartek/data/firebase_services/firebase_auth.dart';
-import 'package:zartek/repository/phone_auth/phone_auth_repo.dart';
+import 'package:zartek/domain/repo_impl/phone_auth_repo.dart';
 
 class PhoneAuthRepoImpl implements PhoneAuthRepo {
   final FirebaseAuthService _authService;

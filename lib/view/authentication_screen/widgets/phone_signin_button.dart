@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zartek/core/color/color.dart';
 
 class PhoneSigninButton extends StatelessWidget {
   const PhoneSigninButton({super.key});
@@ -13,20 +14,19 @@ class PhoneSigninButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(30),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-          backgroundColor: Colors.green,
-          foregroundColor: Colors.white, // Text color
+          backgroundColor: AppColors.primaryColor,
+          foregroundColor: AppColors.white,
           elevation: 2,
         ),
         onPressed: () {
-          Navigator.pushNamed(
-              context, '/phone-number'); // Navigate to PhoneNumberScreen
+          Navigator.pushNamed(context, '/phone-number');
         },
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.start, // Align content to start
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Image.asset(
               "assets/icons/telephone.png",
-              color: Colors.white,
+              color: AppColors.white,
               width: 27,
               height: 27,
             ),

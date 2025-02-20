@@ -1,4 +1,5 @@
 class RoutePaths {
+  static const String splash = '/';
   static const String authentication = '/authentication';
   static const String otp = '/otp';
   static const String phoneNumber = '/phone-number';

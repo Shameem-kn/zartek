@@ -7,7 +7,7 @@ class PhoneNumberScreen extends StatefulWidget {
   const PhoneNumberScreen({super.key});
 
   @override
-  _PhoneNumberScreenState createState() => _PhoneNumberScreenState();
+  State<PhoneNumberScreen> createState() => _PhoneNumberScreenState();
 }
 
 class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
@@ -34,22 +34,17 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
     FirebaseAuth auth = FirebaseAuth.instance;
 
     await auth.verifyPhoneNumber(
-      phoneNumber: phoneNumber, // Add country code as needed
-      verificationCompleted: (PhoneAuthCredential credential) async {
-        print("Verification completed automatically.");
-      },
+      phoneNumber: phoneNumber,
+      verificationCompleted: (PhoneAuthCredential credential) async {},
       verificationFailed: (FirebaseAuthException e) {
-        print("Verification failed: ${e.message}");
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(e.message ?? "Verification failed")),
+          SnackBar(content: Text("Verification failed")),
         );
         setState(() {
           isLoading = false;
         });
       },
       codeSent: (String verificationId, int? resendToken) {
-        print("OTP Sent, Verification ID: $verificationId");
-
         setState(() {
           isLoading = false;
         });
@@ -57,11 +52,11 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
         Navigator.pushNamed(
           context,
           RoutePaths.otp,
-          arguments: verificationId, // Pass verification ID
+          arguments: verificationId,
         );
       },
       codeAutoRetrievalTimeout: (String verificationId) {
-        print("Auto-retrieval timeout, Verification ID: $verificationId");
+        // print("Auto-retrieval timeout, Verification ID: $verificationId");
       },
     );
   }

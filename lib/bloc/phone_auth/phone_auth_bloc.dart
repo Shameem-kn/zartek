@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../../repository/user_pref/user_pref_repo.dart';
+import '../../domain/repo_impl/user_pref_repo.dart';
 import 'phone_auth_event.dart';
 import 'phone_auth_state.dart';
 
@@ -63,7 +63,7 @@ class PhoneAuthBloc extends Bloc<PhoneAuthEvent, PhoneAuthState> {
       User? user = userCredential.user;
 
       if (user != null) {
-        final username = user.displayName ?? 'Unknown User';
+        final username = user.phoneNumber ?? 'Unknown User';
         final imageUrl = user.photoURL ?? '';
 
         await _userPrefRepo.saveUserData(username, user.uid, imageUrl);

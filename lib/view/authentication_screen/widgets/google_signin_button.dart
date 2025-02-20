@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zartek/bloc/google_auth/auth_bloc.dart';
 import 'package:zartek/bloc/google_auth/auth_event.dart';
 import 'package:zartek/bloc/google_auth/auth_state.dart';
+import 'package:zartek/core/color/color.dart';
 import 'package:zartek/core/routes/route_paths.dart'; // Import the RoutePaths for easy access
 
 class GoogleSigninButton extends StatelessWidget {
@@ -36,36 +37,33 @@ class GoogleSigninButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(30),
               ),
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-              backgroundColor: Colors.blue,
-              foregroundColor: Colors.white, // Text color
+              backgroundColor: AppColors.blue,
+              foregroundColor: AppColors.white, // Text color
               elevation: 2,
             ),
             onPressed: state is GoogleAuthLoadingState
-                ? null // Disable the button when loading
+                ? null //
                 : () {
-                    print("Google sign-in triggered");
-                    // Only call GoogleSignInRequested when not in loading state
                     context.read<GoogleAuthBloc>().add(GoogleSignInRequested());
                   },
             child: state is GoogleAuthLoadingState
                 ? Container(
                     alignment: Alignment.center,
                     child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                      valueColor:
+                          AlwaysStoppedAnimation<Color>(AppColors.white),
                     ),
                   )
                 : Row(
-                    mainAxisAlignment:
-                        MainAxisAlignment.start, // Align content to start
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       SvgPicture.asset(
-                        'assets/icons/google.svg', // Updated to use SVG
+                        'assets/icons/google.svg',
                         height: 27,
                         width: 27,
                       ),
                       Expanded(
                         child: Center(
-                          // Centers the text in remaining space
                           child: Text(
                             'Google',
                             style: TextStyle(
