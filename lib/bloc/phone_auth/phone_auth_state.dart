@@ -20,8 +20,6 @@ class OtpSentSuccess extends PhoneAuthState {
 }
 
 class PhoneAuthSuccess extends PhoneAuthState {
-  // ✅ Add this state
-  // final String userId;
   final User user;
 
   PhoneAuthSuccess(this.user);

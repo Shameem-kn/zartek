@@ -55,11 +55,10 @@ class _OtpScreenState extends State<OtpScreen> {
                     height: 50,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF19601A), // Dark Green
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
+                          backgroundColor: Colors.green,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          )),
                       onPressed: state is PhoneAuthLoading
                           ? null // Disable button while loading
                           : () {
